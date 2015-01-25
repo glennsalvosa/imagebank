@@ -28,9 +28,9 @@
 		<td><?php echo h($image['Image']['modified']); ?>&nbsp;</td>
 		<td><?php echo h($image['Image']['status']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $image['Image']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $image['Image']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $image['Image']['id']), array(), __('Are you sure you want to delete # %s?', $image['Image']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $image['Image']['id']), array('class' => 'btn btn-primary')); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $image['Image']['id']), array('class' => 'btn btn-warning')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $image['Image']['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $image['Image']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

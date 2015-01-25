@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  * @property Image $Image
  */
 class Staff extends AppModel {
+	
+	public $displayField = 'name';
 
 /**
  * Validation rules

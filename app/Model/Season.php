@@ -6,6 +6,8 @@ App::uses('AppModel', 'Model');
  * @property Image $Image
  */
 class Season extends AppModel {
+	
+public $displayField = 'season';
 
 /**
  * Validation rules

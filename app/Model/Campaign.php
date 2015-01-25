@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  */
 class Campaign extends AppModel {
 
+public $displayField = 'campaign';
+
 /**
  * Validation rules
  *

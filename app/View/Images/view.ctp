@@ -116,9 +116,9 @@
 			<td><?php echo $download['modified']; ?></td>
 			<td><?php echo $download['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'downloads', 'action' => 'view', $download['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'downloads', 'action' => 'edit', $download['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'downloads', 'action' => 'delete', $download['id']), array(), __('Are you sure you want to delete # %s?', $download['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'downloads', 'action' => 'view', $download['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'downloads', 'action' => 'edit', $download['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'downloads', 'action' => 'delete', $download['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $download['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -127,7 +127,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Download'), array('controller' => 'downloads', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Download'), array('controller' => 'downloads', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -156,9 +156,9 @@
 			<td><?php echo $brandCategory['modified']; ?></td>
 			<td><?php echo $brandCategory['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'brand_categories', 'action' => 'view', $brandCategory['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'brand_categories', 'action' => 'edit', $brandCategory['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'brand_categories', 'action' => 'delete', $brandCategory['id']), array(), __('Are you sure you want to delete # %s?', $brandCategory['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'brand_categories', 'action' => 'view', $brandCategory['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'brand_categories', 'action' => 'edit', $brandCategory['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'brand_categories', 'action' => 'delete', $brandCategory['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $brandCategory['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -167,7 +167,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Brand Category'), array('controller' => 'brand_categories', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Brand Category'), array('controller' => 'brand_categories', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -194,9 +194,9 @@
 			<td><?php echo $brand['modified']; ?></td>
 			<td><?php echo $brand['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'brands', 'action' => 'view', $brand['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'brands', 'action' => 'edit', $brand['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'brands', 'action' => 'delete', $brand['id']), array(), __('Are you sure you want to delete # %s?', $brand['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'brands', 'action' => 'view', $brand['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'brands', 'action' => 'edit', $brand['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'brands', 'action' => 'delete', $brand['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $brand['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -205,7 +205,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Brand'), array('controller' => 'brands', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Brand'), array('controller' => 'brands', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -232,9 +232,9 @@
 			<td><?php echo $campaign['modified']; ?></td>
 			<td><?php echo $campaign['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'campaigns', 'action' => 'view', $campaign['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'campaigns', 'action' => 'edit', $campaign['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'campaigns', 'action' => 'delete', $campaign['id']), array(), __('Are you sure you want to delete # %s?', $campaign['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'campaigns', 'action' => 'view', $campaign['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'campaigns', 'action' => 'edit', $campaign['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'campaigns', 'action' => 'delete', $campaign['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $campaign['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -243,7 +243,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Campaign'), array('controller' => 'campaigns', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Campaign'), array('controller' => 'campaigns', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -270,9 +270,9 @@
 			<td><?php echo $category['modified']; ?></td>
 			<td><?php echo $category['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'categories', 'action' => 'view', $category['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'categories', 'action' => 'edit', $category['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'categories', 'action' => 'delete', $category['id']), array(), __('Are you sure you want to delete # %s?', $category['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'categories', 'action' => 'view', $category['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'categories', 'action' => 'edit', $category['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'categories', 'action' => 'delete', $category['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $category['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -281,7 +281,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Category'), array('controller' => 'categories', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Category'), array('controller' => 'categories', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -308,9 +308,9 @@
 			<td><?php echo $season['modified']; ?></td>
 			<td><?php echo $season['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'seasons', 'action' => 'view', $season['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'seasons', 'action' => 'edit', $season['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'seasons', 'action' => 'delete', $season['id']), array(), __('Are you sure you want to delete # %s?', $season['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'seasons', 'action' => 'view', $season['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'seasons', 'action' => 'edit', $season['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'seasons', 'action' => 'delete', $season['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $season['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -319,7 +319,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Season'), array('controller' => 'seasons', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Season'), array('controller' => 'seasons', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -348,9 +348,9 @@
 			<td><?php echo $staff['modified']; ?></td>
 			<td><?php echo $staff['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'staffs', 'action' => 'view', $staff['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'staffs', 'action' => 'edit', $staff['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'staffs', 'action' => 'delete', $staff['id']), array(), __('Are you sure you want to delete # %s?', $staff['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'staffs', 'action' => 'view', $staff['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'staffs', 'action' => 'edit', $staff['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'staffs', 'action' => 'delete', $staff['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $staff['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -359,7 +359,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Staff'), array('controller' => 'staffs', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Staff'), array('controller' => 'staffs', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -386,9 +386,9 @@
 			<td><?php echo $week['modified']; ?></td>
 			<td><?php echo $week['status']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'weeks', 'action' => 'view', $week['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'weeks', 'action' => 'edit', $week['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'weeks', 'action' => 'delete', $week['id']), array(), __('Are you sure you want to delete # %s?', $week['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'weeks', 'action' => 'view', $week['id']), array('class' => 'btn btn-primary')); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'weeks', 'action' => 'edit', $week['id']), array('class' => 'btn btn-warning')); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'weeks', 'action' => 'delete', $week['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $week['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -397,7 +397,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Week'), array('controller' => 'weeks', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Week'), array('controller' => 'weeks', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 		</ul>
 	</div>
 </div>

@@ -9,6 +9,8 @@ App::uses('AppModel', 'Model');
  */
 class Brand extends AppModel {
 
+public $displayField = 'brand';
+
 /**
  * Validation rules
  *

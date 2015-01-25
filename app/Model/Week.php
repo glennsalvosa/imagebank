@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  */
 class Week extends AppModel {
 
+public $displayField = 'period';
+
 /**
  * Validation rules
  *

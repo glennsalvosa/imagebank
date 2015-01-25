@@ -8,6 +8,8 @@ App::uses('AppModel', 'Model');
  */
 class BrandCategory extends AppModel {
 
+public $displayField = 'category';
+
 /**
  * Validation rules
  *
