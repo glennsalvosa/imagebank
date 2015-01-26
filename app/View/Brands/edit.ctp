@@ -15,9 +15,9 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Brand.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Brand.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Brands'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Images'), array('controller' => 'images', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'images', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Brand.id')), array('class' => 'btn'), __('Are you sure you want to delete # %s?', $this->Form->value('Brand.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('List Brands'), array('action' => 'index'), array('class' => 'btn')); ?></li>
+		<li><?php echo $this->Html->link(__('List Images'), array('controller' => 'images', 'action' => 'index'), array('class' => 'btn')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'images', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 	</ul>
 </div>

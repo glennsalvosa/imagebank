@@ -1,4 +1,4 @@
-<div class="seasons index">
+<div class="seasons index container">
 	<h2><?php echo __('Seasons'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
@@ -22,9 +22,9 @@
 		<td><?php echo h($season['Season']['modified']); ?>&nbsp;</td>
 		<td><?php echo h($season['Season']['status']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $season['Season']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $season['Season']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $season['Season']['id']), array(), __('Are you sure you want to delete # %s?', $season['Season']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $season['Season']['id']), array('class' => 'btn btn-primary')); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $season['Season']['id']), array('class' => 'btn btn-warning')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $season['Season']['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $season['Season']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -44,9 +44,9 @@
 	?>
 	</div>
 </div>
-<div class="actions">
+<div class="actions container">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Season'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New Season'), array('action' => 'add'), array('class' => 'btn')); ?></li>
 	</ul>
 </div>

@@ -1,4 +1,4 @@
-<div class="brands index">
+<div class="brands index container">
 	<h2><?php echo __('Brands'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
@@ -22,9 +22,9 @@
 		<td><?php echo h($brand['Brand']['modified']); ?>&nbsp;</td>
 		<td><?php echo h($brand['Brand']['status']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $brand['Brand']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $brand['Brand']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $brand['Brand']['id']), array(), __('Are you sure you want to delete # %s?', $brand['Brand']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $brand['Brand']['id']), array('class' => 'btn btn-primary')); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $brand['Brand']['id']), array('class' => 'btn btn-warning')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $brand['Brand']['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $brand['Brand']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -44,11 +44,11 @@
 	?>
 	</div>
 </div>
-<div class="actions">
+<div class="actions container">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Brand'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Images'), array('controller' => 'images', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'images', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Brand'), array('action' => 'add'), array('class' => 'btn')); ?></li>
+		<li><?php echo $this->Html->link(__('List Images'), array('controller' => 'images', 'action' => 'index'), array('class' => 'btn')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'images', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 	</ul>
 </div>

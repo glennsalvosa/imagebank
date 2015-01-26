@@ -82,7 +82,7 @@
 <div class="hidden">
 	
 	<div id="brand_creator">
-		<form id="brand_creator">
+		<form class="ajaxForm" id="brand_creator">
 			<fieldset>
 				<legend>Create New Brand</legend>
 				<?php echo $this->Form->input('Brand.brand', array('type' => 'text')); ?>
@@ -92,7 +92,7 @@
 	</div>
 	
 	<div id="campaign_creator">
-		<form id="campaign_creator">
+		<form class="ajaxForm" id="campaign_creator">
 			<fieldset>
 				<legend>Create New Campaign</legend>
 				<?php echo $this->Form->input('Campaign.campaign', array('type' => 'text')); ?>
@@ -102,7 +102,7 @@
 	</div>
 	
 	<div id="brand_creator">
-		<form id="brand_creator">
+		<form class="ajaxForm" id="brand_creator">
 			<fieldset>
 				<legend>Create New Brand</legend>
 				<?php echo $this->Form->input('Brand.brand', array('type' => 'text')); ?>
@@ -112,7 +112,7 @@
 	</div>
 	
 	<div id="category_creator">
-		<form id="category_creator">
+		<form class="ajaxForm" id="category_creator">
 			<fieldset>
 				<legend>Create New Category</legend>
 				<?php echo $this->Form->input('Category.category', array('type' => 'text')); ?>
@@ -122,7 +122,7 @@
 	</div>
 	
 	<div id="season_creator">
-		<form id="season_creator">
+		<form class="ajaxForm" id="season_creator">
 			<fieldset>
 				<legend>Create New Season</legend>
 				<?php echo $this->Form->input('Season.season', array('type' => 'text')); ?>
@@ -132,7 +132,7 @@
 	</div>
 	
 	<div id="staff_creator">
-		<form id="staff_creator">
+		<form class="ajaxForm" id="staff_creator">
 			<fieldset>
 				<legend>Create New Staff</legend>
 				<?php echo $this->Form->input('Staff.name', array('type' => 'text')); ?>
@@ -142,7 +142,7 @@
 	</div>
 	
 	<div id="week_creator">
-		<form id="week_creator">
+		<form class="ajaxForm" id="week_creator">
 			<fieldset>
 				<legend>Create New Week</legend>
 				<?php echo $this->Form->input('Week.period', array('type' => 'text')); ?>
@@ -156,5 +156,9 @@
 <script type="text/javascript">
 	$(document).ready( function () {
 		$('.dynamic-trigger').fancybox();
+		
+		$('.ajaxForm').ajaxForm({
+			
+		});
 	});
 </script>

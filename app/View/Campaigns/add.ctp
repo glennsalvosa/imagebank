@@ -1,4 +1,4 @@
-<div class="campaigns form">
+<div class="campaigns form container">
 <?php echo $this->Form->create('Campaign'); ?>
 	<fieldset>
 		<legend><?php echo __('Add Campaign'); ?></legend>
@@ -10,10 +10,10 @@
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
-<div class="actions">
+<div class="actions container">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Campaigns'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Campaigns'), array('action' => 'index'), array('class' => 'btn')); ?></li>
 	</ul>
 </div>

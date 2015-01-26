@@ -1,4 +1,4 @@
-<div class="weeks form">
+<div class="weeks form container">
 <?php echo $this->Form->create('Week'); ?>
 	<fieldset>
 		<legend><?php echo __('Add Week'); ?></legend>
@@ -11,12 +11,12 @@
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
-<div class="actions">
+<div class="actions container">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Weeks'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Images'), array('controller' => 'images', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'images', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Weeks'), array('action' => 'index'), array('class' => 'btn')); ?></li>
+		<li><?php echo $this->Html->link(__('List Images'), array('controller' => 'images', 'action' => 'index'), array('class' => 'btn')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'images', 'action' => 'add'), array('class' => 'btn')); ?> </li>
 	</ul>
 </div>

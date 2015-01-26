@@ -40,6 +40,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->css('bootstrap-responsive.min');
 		echo $this->Html->css('chosen');
 		echo $this->Html->css('jquery.fancybox');
+		echo $this->Html->css('jquery.form.min');
 		echo $this->Html->css('overwrite');
 		
 		// docs.css is only for this exapmple, remove for app dev
