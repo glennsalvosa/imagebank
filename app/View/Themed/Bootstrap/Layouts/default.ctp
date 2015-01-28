@@ -30,7 +30,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<?php echo $title_for_layout; ?>
 	</title>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	
 	<?php
 		echo $this->Html->meta(array("name"=>"viewport","content"=>"width=device-width,  initial-scale=1.0"));
@@ -49,7 +48,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->fetch('css');
 		
 		echo $this->Html->script('libs/modernizr.min');
-		// echo $this->Html->script('libs/jquery');
+		echo $this->Html->script('libs/jquery');
 		echo $this->Html->script('libs/bootstrap.min');
 		echo $this->Html->script('libs/chosen.jquery.min');
 		echo $this->Html->script('libs/jquery.fancybox');
