@@ -49,8 +49,15 @@ class BrandsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Brand->create();
 			if ($this->Brand->save($this->request->data)) {
-				$this->Session->setFlash(__('The brand has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				if(isset($_GET['mode'])) {
+					$brand = $this->request->data['Brand']['brand'];
+					$brand_id = $this->Brand->id;
+					echo "<option value=".$brand_id.">".$brand."</option>";
+					exit();
+				} else {
+					$this->Session->setFlash(__('The brand has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				}
 			} else {
 				$this->Session->setFlash(__('The brand could not be saved. Please, try again.'));
 			}

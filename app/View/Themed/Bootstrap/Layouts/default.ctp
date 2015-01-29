@@ -30,6 +30,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<?php echo $title_for_layout; ?>
 	</title>
 	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	
 	<?php
 		echo $this->Html->meta(array("name"=>"viewport","content"=>"width=device-width,  initial-scale=1.0"));
@@ -39,7 +40,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->css('bootstrap-responsive.min');
 		echo $this->Html->css('chosen');
 		echo $this->Html->css('jquery.fancybox');
-		echo $this->Html->css('jquery.form.min');
 		echo $this->Html->css('overwrite');
 		
 		// docs.css is only for this exapmple, remove for app dev
@@ -48,10 +48,11 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->fetch('css');
 		
 		echo $this->Html->script('libs/modernizr.min');
-		echo $this->Html->script('libs/jquery');
+		// echo $this->Html->script('libs/jquery');
 		echo $this->Html->script('libs/bootstrap.min');
 		echo $this->Html->script('libs/chosen.jquery.min');
 		echo $this->Html->script('libs/jquery.fancybox');
+		echo $this->Html->script('libs/jquery.form.min');
 		echo $this->fetch('script');
 	?>
 
@@ -93,6 +94,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
 <script type="text/javascript">
 	$(document).ready( function () {
-		$(".chosen-select").chosen({max_selected_options: 5});
+		$(".chosen-select").chosen();
 	});
 </script>
