@@ -105,4 +105,12 @@ class BrandCategoriesController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+	
+	public function get_checklist() {
+		$this->layout = "ajax";
+		
+		$selected_brands = explode(",", $_POST['selected_brands_holder']);
+		$brand_categories = $this->BrandCategory->find('list', array('conditions' => array('brand_id' => $selected_brands, 'status' => 1)));
+		$this->set("brand_categories", $brand_categories);
+	}
 }

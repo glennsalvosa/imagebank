@@ -17,7 +17,7 @@
 		</div>
 		
 		<div class="elementHolder">
-			<?php	echo $this->Form->input('BrandCategory', array('div' => false, 'class' => 'chosen-select', 'multiple' => true)); ?>
+			<div id="loaded_brand_category"></div>
 		</div>
 		
 		<div class="elementHolder">
@@ -78,14 +78,24 @@
 
 <div class="hidden">
 	
-	<div id="brand_creator">
+	<div id="brand_creator" style="width: 350px;">
 		<form action="/brands/add?mode=ajax" id="brand_creator" class="ajaxForm" method="post" accept-charset="utf-8">
 			<fieldset>
 				<legend>Create New Brand</legend>
 				<?php echo $this->Form->input('Brand.brand', array('type' => 'text')); ?>
 				<?php echo $this->Form->input('Brand.description'); ?>
-				<input type="submit" id="brand_creator" class="module-creation-trigger">
 			</fieldset>
+			
+			<fieldset>
+				<legend>Brand Categories</legend>
+				<div class="left full"><input name="data[BrandCategory][category][]" maxlength="100" type="text" id="brand_category_0"></div>
+				<div id="appending_data"></div>
+				<br />
+				<input type="button" class="btn btn-primary" value="More Category" id="more_category">
+			</fieldset>
+			
+			<br />
+			<input type="submit" id="brand_creator" class="module-creation-trigger">
 		</form>
 	</div>
 	
@@ -157,6 +167,8 @@
 			var selected_brands = $(this).chosen().val();
 			var flatten_selected_brand = selected_brands.join(',');			
 			$('#selected_brands_holder').val(flatten_selected_brand);
+			
+			load_brand_categories();
 		});
 		
 		// to identify the currently triggered module form
@@ -178,6 +190,10 @@
 				// resetting the chosen dropdown box to cater the additional newly created entry of triggered module
 				$("#"+module[0]+"_selector").trigger("chosen:updated");
 				
+				var selected_brands = $("#"+module[0]+"_selector").chosen().val();
+				var flatten_selected_brand = selected_brands.join(',');			
+				$('#selected_brands_holder').val(flatten_selected_brand);
+				
 				var module_raw_string = module[0];
 				var capitalized_module_name = module_raw_string.charAt(0).toUpperCase() + module_raw_string.slice(1);
 				
@@ -185,7 +201,43 @@
 				
 				$('form#'+untouched_id)[0].reset();
 				$.fancybox.close();
+				
+				load_brand_categories();
 			}
 		});
+		
+		$('#more_category').click( function () {
+			var append_id = makeid();
+			var append_content = '<div id="'+append_id+'" class="left full"><input class="left" name="data[BrandCategory][category][]" maxlength="100" type="text" id="'+append_id+'"><input type="button" value="Remove" class="append_category_remove left btn" id="'+append_id+'"></div>';
+			$('#appending_data').append(append_content);
+		});
+		
+		$(document).on("click", ".append_category_remove", function () {
+			var append_id_to_remove = $(this).attr('id');
+			$('div#'+append_id_to_remove).remove();
+		});
+		
+		function makeid() {
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+			for( var i=0; i < 10; i++ )
+				text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+			return text;
+		}
+		
+		function load_brand_categories() {
+			$.ajax({
+				async:true,
+				data:'selected_brands_holder='+$('#selected_brands_holder').val(),
+				dataType:'html',
+				success:function (data, textStatus) {
+					$('#loaded_brand_category').html(data);
+				},
+				type:'post',
+				url:"/brand_categories/get_checklist"
+			});
+		}
 	});
 </script>

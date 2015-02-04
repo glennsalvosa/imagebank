@@ -36,20 +36,20 @@
 			var append_content = '<div id="'+append_id+'" class="left full"><input class="left" name="data[BrandCategory][category][]" maxlength="100" type="text" id="'+append_id+'"><input type="button" value="Remove" class="append_category_remove left btn" id="'+append_id+'"></div>';
 			$('#appending_data').append(append_content);
 		});
-	});
-	
-	$(document).on("click", ".append_category_remove", function () {
-		var append_id_to_remove = $(this).attr('id');
-		$('div#'+append_id_to_remove).remove();
-	});
-	
-	function makeid() {
-		var text = "";
-		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		
+		$(document).on("click", ".append_category_remove", function () {
+			var append_id_to_remove = $(this).attr('id');
+			$('div#'+append_id_to_remove).remove();
+		});
+		
+		function makeid() {
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-		for( var i=0; i < 10; i++ )
-			text += possible.charAt(Math.floor(Math.random() * possible.length));
+			for( var i=0; i < 10; i++ )
+				text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-		return text;
-	}
+			return text;
+		}
+	});
 </script>
