@@ -147,11 +147,19 @@
 </div>
 
 <input type="hidden" id="module_triggered" />
+<input type="hidden" id="selected_brands_holder" />
 
 <script type="text/javascript">
 	$(document).ready( function () {
 		$('.dynamic-trigger').fancybox();
-	 
+		
+		$("#brand_selector").chosen().change(function(e, params){
+			var selected_brands = $(this).chosen().val();
+			var flatten_selected_brand = selected_brands.join(',');			
+			$('#selected_brands_holder').val(flatten_selected_brand);
+		});
+		
+		// to identify the currently triggered module form
 		$('.ajaxForm').submit(function (){
 			var form_id = $(this).attr('id');
 			$('#module_triggered').val(form_id);
@@ -166,10 +174,15 @@
 				var module = form_id.split('_creator');
 				
 				$("#"+module[0]+"_selector").append(to_append);
+				
+				// resetting the chosen dropdown box to cater the additional newly created entry of triggered module
 				$("#"+module[0]+"_selector").trigger("chosen:updated");
+				
 				var module_raw_string = module[0];
 				var capitalized_module_name = module_raw_string.charAt(0).toUpperCase() + module_raw_string.slice(1);
+				
 				alert(capitalized_module_name+" has been created");				
+				
 				$('form#'+untouched_id)[0].reset();
 				$.fancybox.close();
 			}

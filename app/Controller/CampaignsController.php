@@ -49,8 +49,15 @@ class CampaignsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Campaign->create();
 			if ($this->Campaign->save($this->request->data)) {
-				$this->Session->setFlash(__('The campaign has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				if(isset($_GET['mode'])) {
+					$campaign = $this->request->data['Campaign']['campaign'];
+					$campaign_id = $this->Campaign->id;
+					echo "<option selected=selected value=".$campaign_id.">".$campaign."</option>";
+					exit();
+				} else {
+					$this->Session->setFlash(__('The campaign has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				}
 			} else {
 				$this->Session->setFlash(__('The campaign could not be saved. Please, try again.'));
 			}

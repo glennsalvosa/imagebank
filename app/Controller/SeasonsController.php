@@ -49,8 +49,15 @@ class SeasonsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Season->create();
 			if ($this->Season->save($this->request->data)) {
-				$this->Session->setFlash(__('The season has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				if(isset($_GET['mode'])) {
+					$season = $this->request->data['Season']['season'];
+					$season_id = $this->Season->id;
+					echo "<option selected=selected value=".$season_id.">".$season."</option>";
+					exit();
+				} else {
+					$this->Session->setFlash(__('The season has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				}
 			} else {
 				$this->Session->setFlash(__('The season could not be saved. Please, try again.'));
 			}

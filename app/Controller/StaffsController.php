@@ -49,8 +49,15 @@ class StaffsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Staff->create();
 			if ($this->Staff->save($this->request->data)) {
-				$this->Session->setFlash(__('The staff has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				if(isset($_GET['mode'])) {
+					$staff = $this->request->data['Staff']['name'];
+					$staff_id = $this->Staff->id;
+					echo "<option selected=selected value=".$staff_id.">".$staff."</option>";
+					exit();
+				} else {
+					$this->Session->setFlash(__('The staff has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				}
 			} else {
 				$this->Session->setFlash(__('The staff could not be saved. Please, try again.'));
 			}

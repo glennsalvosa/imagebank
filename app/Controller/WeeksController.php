@@ -49,8 +49,15 @@ class WeeksController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Week->create();
 			if ($this->Week->save($this->request->data)) {
-				$this->Session->setFlash(__('The week has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				if(isset($_GET['mode'])) {
+					$week = $this->request->data['Week']['period'];
+					$week_id = $this->Week->id;
+					echo "<option selected=selected value=".$week_id.">".$week."</option>";
+					exit();
+				} else {
+					$this->Session->setFlash(__('The week has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				}
 			} else {
 				$this->Session->setFlash(__('The week could not be saved. Please, try again.'));
 			}

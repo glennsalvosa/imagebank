@@ -47,12 +47,23 @@ class BrandsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			
 			$this->Brand->create();
 			if ($this->Brand->save($this->request->data)) {
+				$brand_id = $this->Brand->id;
+				
+				foreach($this->request->data['BrandCategory']['category'] as $category) {
+					$to_create_brand_category = array();
+					$to_create_brand_category['BrandCategory']['category'] = $category;
+					$to_create_brand_category['BrandCategory']['brand_id'] = $brand_id;
+					
+					$this->Brand->BrandCategory->create();
+					$this->Brand->BrandCategory->save($to_create_brand_category);
+				}
+				
 				if(isset($_GET['mode'])) {
 					$brand = $this->request->data['Brand']['brand'];
-					$brand_id = $this->Brand->id;
-					echo "<option value=".$brand_id.">".$brand."</option>";
+					echo "<option selected=selected value=".$brand_id.">".$brand."</option>";
 					exit();
 				} else {
 					$this->Session->setFlash(__('The brand has been saved.'));
