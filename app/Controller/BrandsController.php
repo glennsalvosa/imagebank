@@ -83,11 +83,50 @@ class BrandsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$original_brand_categories = $this->Brand->BrandCategory->find('list', array('conditions' => array('BrandCategory.brand_id' => $id, 'BrandCategory.status' => 1), 'fields' => array('id', 'id')));
 		if (!$this->Brand->exists($id)) {
 			throw new NotFoundException(__('Invalid brand'));
 		}
+		
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Brand->save($this->request->data)) {
+			
+			$this->var_debug($original_brand_categories);
+			
+			$submitted_category_ids = array();
+			foreach($this->request->data['BrandCategory'] as $brand_category) {
+				if(isset($brand_category['id'])) {
+					$submitted_category_ids[$brand_category['id']] = $brand_category['id'];
+				}
+			}
+			
+			$tobe_deleted = array_diff($original_brand_categories, $submitted_category_ids);
+			
+			if ($this->Brand->save($this->request->data)) {		
+				
+				foreach($this->request->data['BrandCategory'] as $category) {
+					$to_create_brand_category = array();
+					$to_create_brand_category['BrandCategory']['category'] = $category['category'];
+					$to_create_brand_category['BrandCategory']['brand_id'] = $this->Brand->id;
+					
+					if(!isset($category['id'])) {
+						$this->Brand->BrandCategory->create();
+					} else {
+						$to_create_brand_category['BrandCategory']['id'] = $category['id'];
+					}
+					
+					$this->Brand->BrandCategory->save($to_create_brand_category);
+				}
+				
+				if(!empty($tobe_deleted)) {
+					foreach($tobe_deleted as $delete_id) {
+						$to_delete = array();
+						$to_delete['BrandCategory']['id'] = $delete_id;
+						$to_delete['BrandCategory']['status'] = 0;
+						
+						$this->Brand->BrandCategory->save($to_delete);
+					}					
+				}
+				
 				$this->Session->setFlash(__('The brand has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

@@ -41,7 +41,7 @@ public $displayField = 'brand';
 			'className' => 'BrandCategory',
 			'foreignKey' => 'brand_id',
 			'dependent' => false,
-			'conditions' => '',
+			'conditions' => array('status' => 1),
 			'fields' => '',
 			'order' => '',
 			'limit' => '',

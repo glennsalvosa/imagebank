@@ -33,7 +33,7 @@
 	$(document).ready( function () {
 		$('#more_category').click( function () {
 			var append_id = makeid();
-			var append_content = '<div id="'+append_id+'" class="left full"><input class="left" name="data[BrandCategory][category][]" maxlength="100" type="text" id="append_id"><input type="button" value="Remove" class="append_category_remove left btn" id="'+append_id+'"></div>';
+			var append_content = '<div id="'+append_id+'" class="left full"><input class="left" name="data[BrandCategory][category][]" maxlength="100" type="text" id="'+append_id+'"><input type="button" value="Remove" class="append_category_remove left btn" id="'+append_id+'"></div>';
 			$('#appending_data').append(append_content);
 		});
 	});

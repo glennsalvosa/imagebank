@@ -14,7 +14,8 @@
 			<div id="appending_data">
 				<?php foreach($this->request->data['BrandCategory'] as $category) { ?>
 					<div id="<?php echo $category['id']; ?>" class="left full">
-						<input class="left" name="data[BrandCategory][category][]" maxlength="100" type="text" id="<?php echo $category['id']; ?>" value="<?php echo $category['category']; ?>">
+						<input class="left" name="data[BrandCategory][<?php echo $category['id']; ?>][id]" value="<?php echo $category['id']; ?>" type="hidden">
+						<input class="left" name="data[BrandCategory][<?php echo $category['id']; ?>][category]" maxlength="100" type="text" id="<?php echo $category['id']; ?>" value="<?php echo $category['category']; ?>">
 						<input type="button" value="Remove" class="append_category_remove left btn" id="<?php echo $category['id'];  ?>">
 					</div>
 				<?php } ?>
@@ -42,7 +43,7 @@
 	$(document).ready( function () {
 		$('#more_category').click( function () {
 			var append_id = makeid();
-			var append_content = '<div id="'+append_id+'" class="left full"><input class="left" name="data[BrandCategory][category][]" maxlength="100" type="text" id="append_id"><input type="button" value="Remove" class="append_category_remove left btn" id="'+append_id+'"></div>';
+			var append_content = '<div id="'+append_id+'" class="left full"><input class="left" name="data[BrandCategory]['+append_id+'][category]" maxlength="100" type="text" id="'+append_id+'"><input type="button" value="Remove" class="append_category_remove left btn" id="'+append_id+'"></div>';
 			$('#appending_data').append(append_content);
 		});
 	});
