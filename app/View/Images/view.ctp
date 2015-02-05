@@ -20,8 +20,9 @@
 		<tr>
 			<td><?php echo __('Location'); ?></td>
 			<td>
-				<?php echo h($image['Image']['location']); ?>
-				&nbsp;
+				<a class="fancybox" href="<?php echo '/img/uploaded/'.$image['Image']['location']; ?>">
+					Click Here To View
+				</a>
 			</td>
 		</tr>
 		

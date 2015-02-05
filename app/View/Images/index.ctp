@@ -17,17 +17,23 @@
 	<tbody>
 	<?php foreach ($images as $image): ?>
 	<tr>
-		<td><?php echo h($image['Image']['id']); ?>&nbsp;</td>
-		<td><?php echo h($image['Image']['name']); ?>&nbsp;</td>
-		<td><?php echo h($image['Image']['location']); ?>&nbsp;</td>
-		<td><?php echo h($image['Image']['description']); ?>&nbsp;</td>
-		<td>
+		<td width="5%"><?php echo h($image['Image']['id']); ?>&nbsp;</td>
+		<td width="8%"><?php echo h($image['Image']['name']); ?>&nbsp;</td>
+		<td width="8%">
+			<?php if(!empty($image['Image']['location'])) { ?>
+				<a class="fancybox" href="<?php echo '/img/uploaded/'.$image['Image']['location']; ?>">Click Here To View</a>
+			<?php } else { ?>
+				Image Not Present
+			<?php } ?>
+		</td>
+		<td width="11%"><?php echo h($image['Image']['description']); ?>&nbsp;</td>
+		<td width="11%">
 			<?php echo $this->Html->link($image['User']['name'], array('controller' => 'users', 'action' => 'view', $image['User']['id'])); ?>
 		</td>
-		<td><?php echo h($image['Image']['created']); ?>&nbsp;</td>
-		<td><?php echo h($image['Image']['modified']); ?>&nbsp;</td>
-		<td><?php echo h($image['Image']['status']); ?>&nbsp;</td>
-		<td class="actions">
+		<td width="11%"><?php echo h($image['Image']['created']); ?>&nbsp;</td>
+		<td width="11%"><?php echo h($image['Image']['modified']); ?>&nbsp;</td>
+		<td width="5%"><?php echo h($image['Image']['status']); ?>&nbsp;</td>
+		<td width="28%" class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $image['Image']['id']), array('class' => 'btn btn-primary')); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $image['Image']['id']), array('class' => 'btn btn-warning')); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $image['Image']['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $image['Image']['id'])); ?>

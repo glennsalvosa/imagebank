@@ -1,8 +1,8 @@
 <?php
-
-class ImageUploadComponent extends Object {
+App::uses('Component', 'Controller');
+class ImageUploadComponent extends Component {
 	
-    function uploadImage($image, $folder) {
+    function uploadImage($image) {
       	$name = $image['name'];
 		$type = $image['type'];
 		$tmp_name = $image['tmp_name'];
@@ -10,10 +10,15 @@ class ImageUploadComponent extends Object {
 		$size = $image['size'];
 		$ext = explode('.', $name);
 		if ($name != ''){
-			$namefinal = time().'_'.$name;
-			move_uploaded_file($tmp_name, WWW_ROOT.'img/'.$folder.'/'.$namefinal)or die('Error');
+			$namefinal = time().'_'.str_replace(" ", "_", strtolower($name));
+			if(move_uploaded_file($tmp_name, WWW_ROOT.'img/uploaded/'.$namefinal)) {
+				return $namefinal;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
 		}
-		return $namefinal;
     }
 
 	

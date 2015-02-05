@@ -95,5 +95,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <script type="text/javascript">
 	$(document).ready( function () {
 		$(".chosen-select").chosen();
+		$('.fancybox').fancybox();
 	});
 </script>

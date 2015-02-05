@@ -13,7 +13,7 @@ class ImagesController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'ImageUpload');
 
 /**
  * index method
@@ -46,7 +46,9 @@ class ImagesController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
+		
+		if ($this->request->is('post')) {			
+			$this->request->data['Image']['location'] = $this->ImageUpload->uploadImage($this->request->data['Image']['location']);
 			$this->Image->create();
 			if ($this->Image->save($this->request->data)) {
 				$this->Session->setFlash(__('The image has been saved.'));
@@ -55,6 +57,7 @@ class ImagesController extends AppController {
 				$this->Session->setFlash(__('The image could not be saved. Please, try again.'));
 			}
 		}
+		
 		$brands = $this->Image->Brand->find('list');
 		$users = $this->Image->User->find('list');
 		$brandCategories = $this->Image->BrandCategory->find('list');
@@ -79,6 +82,13 @@ class ImagesController extends AppController {
 			throw new NotFoundException(__('Invalid image'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			
+			if($this->request->data['Image']['location']['error'] == 0) {
+				$this->request->data['Image']['location'] = $this->ImageUpload->uploadImage($this->request->data['Image']['location']);
+			} else {
+				$this->request->data['Image']['location'] = $this->request->data['Image']['original_location'];
+			}
+			
 			if ($this->Image->save($this->request->data)) {
 				$this->Session->setFlash(__('The image has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -89,6 +99,7 @@ class ImagesController extends AppController {
 			$options = array('conditions' => array('Image.' . $this->Image->primaryKey => $id));
 			$this->request->data = $this->Image->find('first', $options);
 		}
+		
 		$brands = $this->Image->Brand->find('list');
 		$users = $this->Image->User->find('list');
 		$brandCategories = $this->Image->BrandCategory->find('list');

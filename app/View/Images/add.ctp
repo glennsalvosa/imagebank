@@ -1,11 +1,13 @@
 <div class="images form container">
-<?php echo $this->Form->create('Image'); ?>
+<?php echo $this->Form->create('Image', array('enctype' => 'multipart/form-data')); ?>
 	<fieldset>
 		<legend><?php echo __('Add Image'); ?></legend>
 
 		<?php
 			echo $this->Form->input('name');
-			echo $this->Form->input('location');
+			echo "<br />";
+			echo $this->Form->input('location', array('type' => 'file', 'label' => 'Image Product'));
+			echo "<br />";
 			echo $this->Form->input('description');
 			echo $this->Form->input('user_id');
 			echo $this->Form->input('status');
@@ -165,7 +167,11 @@
 		
 		$("#brand_selector").chosen().change(function(e, params){
 			var selected_brands = $(this).chosen().val();
-			var flatten_selected_brand = selected_brands.join(',');			
+			
+			if(selected_brands) {
+				var flatten_selected_brand = selected_brands.join(',');
+			}
+			
 			$('#selected_brands_holder').val(flatten_selected_brand);
 			
 			load_brand_categories();

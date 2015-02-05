@@ -1,12 +1,24 @@
 <div class="images form container">
-<?php echo $this->Form->create('Image'); ?>
+<?php echo $this->Form->create('Image', array('enctype' => 'multipart/form-data')); ?>
 	<fieldset>
 		<legend><?php echo __('Edit Image'); ?></legend>
 
 		<?php
 			echo $this->Form->input('id');
 			echo $this->Form->input('name');
-			echo $this->Form->input('location');
+			
+			echo "<br />";
+			echo $this->Form->input('location', array('type' => 'file', 'label' => 'Image Product'));
+			
+			if(!empty($this->request->data['Image']['location'])) { 
+				?>
+					<a class="fancybox" href="<?php echo '/img/uploaded/'.$this->request->data['Image']['location']; ?>">Current Image</a>
+				<?php 
+			}
+			
+			echo "<br /><br />";
+			
+			echo $this->Form->input('original_location', array('value' => $this->request->data['Image']['location'], 'type' => 'hidden'));
 			echo $this->Form->input('description');
 			echo $this->Form->input('user_id');
 			echo $this->Form->input('status');
@@ -18,7 +30,20 @@
 		</div>
 		
 		<div class="elementHolder">
-			<?php	echo $this->Form->input('BrandCategory', array('div' => false, 'class' => 'chosen-select', 'multiple' => true)); ?>
+			<div id="loaded_brand_category">
+				<h4>Brand Categories</h4>
+				<ul style="list-style: none;">
+					<?php
+						foreach($this->request->data['BrandCategory'] as $brand_category) {
+							?>
+								<li>
+									<label><input checked type="checkbox" name="data[BrandCategory][BrandCategory][]" value="<?php echo $brand_category['id']; ?>"><?php echo $brand_category['category']; ?></label>
+								</li>
+							<?php
+						}
+					?>
+				</ul>
+			</div>
 		</div>
 		
 		<div class="elementHolder">
@@ -166,7 +191,11 @@
 		
 		$("#brand_selector").chosen().change(function(e, params){
 			var selected_brands = $(this).chosen().val();
-			var flatten_selected_brand = selected_brands.join(',');			
+			
+			if(selected_brands) {
+				var flatten_selected_brand = selected_brands.join(',');
+			}
+			
 			$('#selected_brands_holder').val(flatten_selected_brand);
 			
 			load_brand_categories();
