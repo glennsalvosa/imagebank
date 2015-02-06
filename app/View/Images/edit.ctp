@@ -108,7 +108,7 @@
 		<form action="/brands/add?mode=ajax" id="brand_creator" class="ajaxForm" method="post" accept-charset="utf-8">
 			<fieldset>
 				<legend>Create New Brand</legend>
-				<?php echo $this->Form->input('Brand.brand', array('type' => 'text')); ?>
+				<?php echo $this->Form->input('Brand.brand', array('type' => 'text', 'required' => true)); ?>
 				<?php echo $this->Form->input('Brand.description'); ?>
 			</fieldset>
 			
@@ -129,7 +129,7 @@
 		<form id="campaign_creator" class="ajaxForm" action="/campaigns/add?mode=ajax" method="post" accept-charset="utf-8">
 			<fieldset>
 				<legend>Create New Campaign</legend>
-				<?php echo $this->Form->input('Campaign.campaign', array('type' => 'text')); ?>
+				<?php echo $this->Form->input('Campaign.campaign', array('type' => 'text', 'required' => true)); ?>
 				<?php echo $this->Form->input('Campaign.description'); ?>
 				<input type="submit" id="campaign_creator" class="module-creation-trigger">
 			</fieldset>
@@ -140,7 +140,7 @@
 		<form action="/categories/add?mode=ajax" id="category_creator" class="ajaxForm" method="post" accept-charset="utf-8">
 			<fieldset>
 				<legend>Create New Category</legend>
-				<?php echo $this->Form->input('Category.category', array('type' => 'text')); ?>
+				<?php echo $this->Form->input('Category.category', array('type' => 'text', 'required' => true)); ?>
 				<?php echo $this->Form->input('Category.description'); ?>
 				<input type="submit" id="category_creator" class="module-creation-trigger">
 			</fieldset>
@@ -151,7 +151,7 @@
 		<form id="season_creator" class="ajaxForm" action="/seasons/add?mode=ajax" method="post" accept-charset="utf-8">
 			<fieldset>
 				<legend>Create New Season</legend>
-				<?php echo $this->Form->input('Season.season', array('type' => 'text')); ?>
+				<?php echo $this->Form->input('Season.season', array('type' => 'text', 'required' => true)); ?>
 				<?php echo $this->Form->input('Season.description'); ?>
 				<input type="submit" id="season_creator" class="module-creation-trigger">
 			</fieldset>
@@ -162,7 +162,7 @@
 		<form id="staff_creator" class="ajaxForm" action="/staffs/add?mode=ajax" method="post" accept-charset="utf-8">
 			<fieldset>
 				<legend>Create New Staff</legend>
-				<?php echo $this->Form->input('Staff.name', array('type' => 'text')); ?>
+				<?php echo $this->Form->input('Staff.name', array('type' => 'text', 'required' => true)); ?>
 				<?php echo $this->Form->input('Staff.position'); ?>
 				<?php echo $this->Form->input('Staff.company'); ?>
 				<input type="submit" id="staff_creator" class="module-creation-trigger">
@@ -174,7 +174,7 @@
 		<form action="/weeks/add?mode=ajax" method="post" accept-charset="utf-8" id="week_creator" class="ajaxForm">
 			<fieldset>
 				<legend>Create New Week</legend>
-				<?php echo $this->Form->input('Week.period', array('type' => 'text')); ?>
+				<?php echo $this->Form->input('Week.period', array('type' => 'text', 'required' => true)); ?>
 				<?php echo $this->Form->input('Week.description'); ?>
 				<input type="submit" id="week_creator" class="module-creation-trigger">
 			</fieldset>
