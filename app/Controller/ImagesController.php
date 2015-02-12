@@ -70,13 +70,25 @@ class ImagesController extends AppController {
 		$this->set(compact('brands', 'users', 'brandCategories', 'brands', 'campaigns', 'categories', 'seasons', 'staffs', 'weeks'));
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	public function filter($id = null) {		
+		$this->Image->Brand->unBindModel(
+			array(
+				"hasAndBelongsToMany" => array("Image")
+			)
+		);
+		
+		$brands = $this->Image->Brand->find('all', array('fields' => array('Brand.id', 'Brand.brand')));
+		$users = $this->Image->User->find('list');
+		$brandCategories = $this->Image->BrandCategory->find('list');
+		$campaigns = $this->Image->Campaign->find('list');
+		$categories = $this->Image->Category->find('list');
+		$seasons = $this->Image->Season->find('list');
+		$staffs = $this->Image->Staff->find('list');
+		$weeks = $this->Image->Week->find('list');
+		
+		$this->set(compact('brands', 'users', 'brandCategories', 'brands', 'campaigns', 'categories', 'seasons', 'staffs', 'weeks'));	
+	}
+	
 	public function edit($id = null) {
 		if (!$this->Image->exists($id)) {
 			throw new NotFoundException(__('Invalid image'));
@@ -131,5 +143,102 @@ class ImagesController extends AppController {
 			$this->Session->setFlash(__('The image could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+	
+	public function image_results() {
+		if ($this->request->is(array('post', 'put'))) {
+			$post_data = $this->request->data;
+			$condition = array();
+			foreach($post_data as $module => $selected_options) {	
+				
+				switch($module) {
+					case 'Brand':
+						if(!empty($selected_options['id'])) {
+							$condition['Brand.id'] = implode(",", $selected_options['id']);
+						}
+						break;
+						
+					case 'BrandCategory':
+						if(!empty($selected_options['id'])) {
+							$condition['Brand.id'] = "Brand.id IN (".implode(",", $selected_options['id']).")";
+						}
+						break;
+						
+					case 'Campaign':						
+						if(!empty($selected_options['id'])) {
+							$condition['Campaign.id']  = "Campaign.id IN (".implode(",", $selected_options['id']).")";
+						}
+						
+						break;
+						
+					case 'Category':
+						if(!empty($selected_options['id'])) {
+							$condition['Category.id'] = "Category.id IN (".implode(",", $selected_options['id']).")";
+						}
+						break;
+						
+					case 'Season':
+						if(!empty($selected_options['id'])) {
+							$condition['Season.id'] = "Season.id IN (".implode(",", $selected_options['id']).")";
+						}
+						break;
+						
+					case 'Staff':
+						if(!empty($selected_options['id'])) {
+							$condition['Staff.id'] = "Staff.id IN (".implode(",", $selected_options['id']).")";
+						}
+						break;
+						
+					case 'Week':
+						if(!empty($selected_options['id'])) {
+							$condition['Week.id']  = "Week.id IN (".implode(",", $selected_options['id']).")";
+						}
+						break;
+				}
+			}
+			
+			$condition_string = "";
+			
+			if(!empty($condition)) {
+				$condition_string = implode(" AND ", $condition);			
+			}
+			
+			$image_query = "
+				SELECT DISTINCT Image.* FROM images as Image LEFT JOIN images_brands as ImageBrand
+				ON Image.id = ImageBrand.image_id LEFT JOIN brands as Brand
+				ON ImageBrand.brand_id = Brand.id
+				
+				LEFT JOIN images_campaigns as ImageCampaign
+				ON Image.id = ImageCampaign.image_id
+				LEFT JOIN campaigns as Campaign
+				ON ImageCampaign.campaign_id = Campaign.id
+				
+				LEFT JOIN images_categories as ImageCategory
+				ON Image.id = ImageCategory.image_id
+				LEFT JOIN categories as Category
+				ON ImageCategory.category_id = Category.id
+				
+				LEFT JOIN images_seasons as ImageSeason
+				ON Image.id = ImageSeason.image_id
+				LEFT JOIN seasons as Season
+				ON ImageSeason.season_id = Season.id
+				
+				LEFT JOIN images_staffs as ImageStaff
+				ON Image.id = ImageStaff.image_id
+				LEFT JOIN staffs as Staff
+				ON ImageStaff.staff_id = Staff.id
+				
+				LEFT JOIN images_weeks as ImageWeek
+				ON Image.id = ImageWeek.image_id
+				LEFT JOIN weeks as Week
+				ON ImageWeek.week_id = Week.id
+				
+				WHERE ".$condition_string." AND Image.status = 1
+			";
+			
+			$images = $this->Image->query($image_query);
+			$this->var_debug($images);
+			exit();
+		}
 	}
 }
