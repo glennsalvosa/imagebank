@@ -146,6 +146,7 @@ class ImagesController extends AppController {
 	}
 	
 	public function image_results() {
+		$this->layout = "ajax";
 		if ($this->request->is(array('post', 'put'))) {
 			$post_data = $this->request->data;
 			$condition = array();
@@ -237,8 +238,7 @@ class ImagesController extends AppController {
 			";
 			
 			$images = $this->Image->query($image_query);
-			$this->var_debug($images);
-			exit();
+			$this->set("images", $images);
 		}
 	}
 }
