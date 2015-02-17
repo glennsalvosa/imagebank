@@ -6,6 +6,9 @@ td.actions a {
 	margin-left: 10px;
 }
 
+.left { float: left; }
+.right { float: right; }
+
 .actions ul li {
 	list-style: none;
 }
@@ -56,3 +59,10 @@ td.actions a {
 }
 
 .brand_category, .options_toggle { display: none; }
+.module_toggle { font-weight: bold; font-size: 20px; margin-bottom: 20px; margin-top: 20px; }
+ul.options_toggle, ul#result_holder { list-style: none; }
+.image_results { width: 120px; padding: 10px; border: 1px solid #eee; background: #e6e6e6; margin: 10px; border-radius: 10px; float: left; }
+.paging_holder { margin-top: 30px; }
+
+ul#brand_option_toggle li { float: left; width: 100%; margin-bottom: 5px; }
+.brand_selection_toggle { margin-left: 5px; }
