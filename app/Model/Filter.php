@@ -1,11 +1,11 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * ImageFilter Model
+ * Filter Model
  *
  * @property User $User
  */
-class ImageFilter extends AppModel {
+class Filter extends AppModel {
 
 /**
  * Validation rules

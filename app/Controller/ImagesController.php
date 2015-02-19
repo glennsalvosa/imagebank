@@ -5,6 +5,14 @@ class ImagesController extends AppController {
 
 	public $components = array('Paginator', 'ImageUpload');
 
+	function beforeFilter() {
+		parent::beforeFilter();
+		
+		$user_id = $this->Session->read('Auth.User.id');
+		if(!empty($user_id)) {
+			$this->Auth->allow('remove_from_cart', 'add_to_cart', 'image_results', 'download_cart_items');
+		}
+	}
 
 	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
 	
@@ -13,6 +21,88 @@ class ImagesController extends AppController {
 		$this->set('images', $this->Paginator->paginate());
 	}
 
+	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
+	
+	public function add_to_cart($id = null) {
+		if(!isset($_SESSION['image_cart'])) {
+			$_SESSION['image_cart'] = array();
+		}
+		
+		$_SESSION['image_cart'][$id] = $id;
+		
+		echo count($_SESSION['image_cart']);
+		exit();
+	}
+	
+	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
+	
+	public function cart_items() {
+		$this->layout = "ajax";
+		$this->Image->unbindModelAll();
+		$images_cart = $this->Image->find('all', array('conditions' => array('Image.id' => $_SESSION['image_cart'])));		
+		$this->set("images", $images_cart);
+	}
+	
+	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
+	
+	public function download_cart_items() {
+		$this->layout = "ajax";
+		$this->Image->unbindModelAll();
+		$images_cart = $this->Image->find('all', array('conditions' => array('Image.id' => $_SESSION['image_cart'])));
+		
+		$images = array();
+		foreach($images_cart as $entry){
+			$images[$entry['Image']['id']] = $entry['Image']['location'];
+		}
+		
+		$zip_filename = time().".zip";
+		
+		$archive = $this->create_zip($images,$zip_filename);
+		if($archive) {
+				// place this code inside a php file and call it f.e. "download.php"
+				$base_url = $_SERVER['HTTP_HOST'];
+				$fullPath = WWW_ROOT.$zip_filename;
+
+				if ($fd = fopen ($fullPath, "r")) {
+					$fsize = filesize($fullPath);
+					$path_parts = pathinfo($fullPath);
+					$ext = strtolower($path_parts["extension"]);
+					switch ($ext) {
+						case "pdf":
+						header("Content-type: application/pdf"); // add here more headers for diff. extensions
+						header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use 'attachment' to force a download
+						break;
+						default;
+						header("Content-type: application/octet-stream");
+						header("Content-Disposition: filename=\"".$path_parts["basename"]."\"");
+					}
+					header("Content-length: $fsize");
+					header("Cache-control: private"); //use this to open files directly
+					while(!feof($fd)) {
+						$buffer = fread($fd, 2048);
+						echo $buffer;
+					}
+				}
+				fclose ($fd);
+				unlink($fullPath);
+			}
+		
+		exit();
+	}
+	
+	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
+	
+	public function remove_from_cart($id = null) {
+		if(!isset($_SESSION['image_cart'])) {
+			$_SESSION['image_cart'] = array();
+		}
+		
+		unset($_SESSION['image_cart'][$id]);
+		
+		echo count($_SESSION['image_cart']);
+		exit();
+	}
+	
 	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
 	
 	public function view($id = null) {
@@ -53,6 +143,7 @@ class ImagesController extends AppController {
 	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
 	
 	public function filter($id = null) {		
+		
 		$this->Image->Brand->unBindModel(
 			array(
 				"hasAndBelongsToMany" => array("Image")
@@ -67,6 +158,12 @@ class ImagesController extends AppController {
 		$seasons = $this->Image->Season->find('list');
 		$staffs = $this->Image->Staff->find('list');
 		$weeks = $this->Image->Week->find('list');
+		
+		if(!empty($id)) {
+			$this->loadModel('Filter');
+			$filters = $this->Filter->findById($id);
+			$this->set("filters", $filters);
+		}
 		
 		$this->set(compact('brands', 'users', 'brandCategories', 'brands', 'campaigns', 'categories', 'seasons', 'staffs', 'weeks'));	
 	}
@@ -131,18 +228,19 @@ class ImagesController extends AppController {
 		if ($this->request->is(array('post', 'put'))) {
 			$post_data = $this->request->data;
 			$condition = array();
+			
 			foreach($post_data as $module => $selected_options) {	
 				
 				switch($module) {
 					case 'Brand':
 						if(!empty($selected_options['id'])) {
-							$condition['Brand.id'] = implode(",", $selected_options['id']);
+							$condition['Brand.id'] = "Brand.id IN (".implode(",", $selected_options['id']).")";
 						}
 						break;
 						
 					case 'BrandCategory':
 						if(!empty($selected_options['id'])) {
-							$condition['Brand.id'] = "Brand.id IN (".implode(",", $selected_options['id']).")";
+							$condition['BrandCategory.id'] = "BrandCategory.id IN (".implode(",", $selected_options['id']).")";
 						}
 						break;
 						
@@ -224,12 +322,61 @@ class ImagesController extends AppController {
 					$image_ids[$key] = $image['Image']['id'];
 				}
 				
+				$this->Paginator->settings = array(
+					'limit' => 10
+				);
+				
 				$images = $this->Paginator->paginate(array('Image.id' => $image_ids));
 			} else {
 				$images = array();
 			}
 			
 			$this->set("images", $images);
+		}
+	}
+	
+	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
+	
+	/* creates a compressed zip file */
+	function create_zip($files = array(),$destination = '',$overwrite = false) {
+		
+		//if the zip file already exists and overwrite is false, return false
+		if(file_exists($destination) && !$overwrite) { return false; }
+		
+		//vars
+		$valid_files = array();
+		//if files were passed in...
+		if(is_array($files)) {
+			//cycle through each file
+			foreach($files as $file) {
+				//make sure the file exists
+				if(file_exists(WWW_ROOT."img/uploaded/".$file)) {
+					$valid_files[] = $file;
+				}
+			}
+		}
+		
+		//if we have good files...
+		if(count($valid_files)) {
+			//create the archive
+			$zip = new ZipArchive();
+			if($zip->open($destination,$overwrite ? ZIPARCHIVE::OVERWRITE : ZIPARCHIVE::CREATE) !== true) {
+				return false;
+			}
+			//add the files
+			foreach($valid_files as $file) {
+				$zip->addFile(WWW_ROOT."img/uploaded/".$file,$file);
+			}
+			//debug
+			//echo 'The zip archive contains ',$zip->numFiles,' files with a status of ',$zip->status;
+			
+			//close the zip -- done!
+			$zip->close();
+			
+			//check to make sure the file exists
+			return file_exists($destination);
+		} else {
+			return false;
 		}
 	}
 }
