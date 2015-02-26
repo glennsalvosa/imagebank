@@ -140,7 +140,6 @@
 				<legend>Create New Staff</legend>
 				<?php echo $this->Form->input('Staff.name', array('type' => 'text', 'required' => true)); ?>
 				<?php echo $this->Form->input('Staff.position'); ?>
-				<?php echo $this->Form->input('Staff.company'); ?>
 				<input type="submit" id="staff_creator" class="module-creation-trigger">
 			</fieldset>
 		</form>
@@ -197,8 +196,10 @@
 				$("#"+module[0]+"_selector").trigger("chosen:updated");
 				
 				var selected_brands = $("#"+module[0]+"_selector").chosen().val();
-				var flatten_selected_brand = selected_brands.join(',');			
-				$('#selected_brands_holder').val(flatten_selected_brand);
+				if(selected_brands) {
+					var flatten_selected_brand = selected_brands.join(',');			
+					$('#selected_brands_holder').val(flatten_selected_brand);
+				}
 				
 				var module_raw_string = module[0];
 				var capitalized_module_name = module_raw_string.charAt(0).toUpperCase() + module_raw_string.slice(1);

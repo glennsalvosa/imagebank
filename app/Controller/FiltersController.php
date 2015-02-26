@@ -101,10 +101,16 @@ class FiltersController extends AppController {
 	/* ------------------------------------------------------------------------------------ FUNCTION SEPARATOR --------------------------------------------------------------------------------------- */
 	
 	public function ajax_add() {
+		$user_id = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 			$this->Filter->create();
 			if ($this->Filter->save($this->request->data)) {
-				echo $this->Filter->id;
+				$my_filters = $this->Filter->find('all', array('conditions' => array('Filter.user_id' => $user_id), 'order' => 'Filter.id DESC', 'limit' => 7));
+				
+				echo "<input type=hidden id=created_filter_id value=".$this->Filter->id.">";
+				foreach($my_filters as $my_filter) {
+					echo '<li><a href="/images/filter/'.$my_filter['Filter']['id'].'">'.$my_filter['Filter']['filter_name'].'</a></li>';
+				}
 			} else {
 				echo "0";
 			}

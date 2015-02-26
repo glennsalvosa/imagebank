@@ -29,6 +29,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
 	<?php
 		echo $this->Html->meta(array("name"=>"viewport","content"=>"width=device-width,  initial-scale=1.0"));
 		echo $this->Html->meta('icon');
@@ -37,6 +40,11 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->css('bootstrap-responsive.min');
 		// docs.css is only for this exapmple, remove for app dev
 		echo $this->Html->css('backend');
+		
+		echo $this->Html->css('chosen');
+		echo $this->Html->css('jquery.fancybox');
+		echo $this->Html->css('overwrite');
+		
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 	?>
@@ -46,11 +54,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
 	<?php echo $this->element('menu/admin_top_menu'); ?>
 	<div class="container-fluid">
-		<div id="content">
+		<div id="content" class="container">
 			<?php echo $this->Session->flash(); ?>
-
 			<?php echo $this->Session->flash('auth'); ?>
-
 			<?php echo $this->fetch('content'); ?>
 		</div>
 	</div>
@@ -60,12 +66,20 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	</footer><!-- /container -->
 
 
-	<?php echo '<pre>'.$this->element('sql_dump').'</pre>'; ?>
 	<?php
-		echo $this->Html->script('libs/jquery');
 		echo $this->Html->script('libs/modernizr.min');
 		echo $this->Html->script('libs/bootstrap.min');
+		echo $this->Html->script('libs/chosen.jquery.min');
+		echo $this->Html->script('libs/jquery.fancybox');
+		echo $this->Html->script('libs/jquery.form.min');
 		echo $this->fetch('script');
  	?>
 </body>
 </html>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+		$(".chosen-select").chosen();
+		$('.fancybox').fancybox();
+	});
+</script>

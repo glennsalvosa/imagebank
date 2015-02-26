@@ -101,9 +101,20 @@
 					</ul>
 				</fieldset>
 			</form>
+			
+			<fieldset>
+					<label style="font-weight: bold; font-size: 20px; margin-bottom: 20px; margin-top: 20px;">My Filters</label>
+					<ul style="list-style:none;" id="myFilterListHolder">
+						<?php foreach($my_filters as $my_filter) { ?>
+							<li><a href="/images/filter/<?php echo $my_filter['Filter']['id']; ?>"><?php echo $my_filter['Filter']['filter_name']; ?></a></li>
+						<?php } ?>
+					</ul>
+				</fieldset>
 		</div>
 		
-		<div class="span8 left"><div id="results_holder"></div></div>
+		<div class="span8 left" style="height: 660px;">
+			<div id="results_holder"></div>
+		</div>
 	</div>
 	
 	<?php if(isset($filters)) { ?>
@@ -158,6 +169,30 @@
 			generate_result();
 		<?php } ?>
 		
+		$(document).on("click", ".emailItem", function () {
+			var id = $(this).attr('id');
+			id = id.split('_');
+			
+			if(!$('#mailerForm_'+id[1]).is(':visible')) {
+				$('#mailerForm_'+id[1]).show();
+			}
+			
+			return false;
+		});
+			
+		$(document).on("click", ".closeMailer", function () {
+			var id = $(this).attr('id');
+			id = id.split('_');
+			
+			$('#mailerForm_'+id[1]).hide();
+		});	
+			
+		$(document).on("click", ".paging span a", function () {
+			var link = $(this).attr('href');
+			generate_result(link);
+			return false;
+		});
+			
 		$(document).on("click", ".addCart", function () {
 			var image_id = $(this).attr('id');
 			var orig_id = image_id;
@@ -201,20 +236,22 @@
 			
 			return false;
 		});
-	
+		
 		/* ------------------------------------------------------------------------- FUNCTION SEPARATOR -----------------------------------------------------------------------------*/
 		
 		// saving of filters
 		$('.ajaxForm').ajaxForm({
 			complete: function (xhr, textStatus) {
-				console.log(xhr.responseText);
 				if(xhr.responseText != 0) {
 					
 					if($('#popup_save_filter').val() == "Save Filter") {
-						$('#image_filter_values').append('<input name="data[Filter][id]" type="hidden" value="'+xhr.responseText+'">');
 						$('#save_filter').val('Update Filter');
 						$('#popup_save_filter').val('Update Filter');
 						$('#filter_form').attr("action", "/filters/ajax_edit");
+						$('#myFilterListHolder').html(xhr.responseText);
+						
+						var created_filter_id = $('#created_filter_id').val();
+						$('#image_filter_values').append('<input name="data[Filter][id]" type="hidden" value="'+created_filter_id+'">');
 						alert('The filter was succesfully saved');
 						$.fancybox.close();
 						return false;
@@ -223,7 +260,7 @@
 						$.fancybox.close();
 						return false;
 					}
-				}
+				}				
 			}
 		});
 		
@@ -404,20 +441,47 @@
 			});
 		});
 		
+		
+		$(document).on('submit', 'form.mailerAjaxForm', function () {
+			var id = $(this).attr('id');
+			
+			$.ajax({
+				async: true,
+				data: $(this).serialize(),
+				dataType: 'html',
+				success: function (data, textStatus) {
+					$('div#'+id).hide();
+					$('form#'+id)[0].reset();
+					alert('The image reference has been sent');
+				},
+				type: 'post',
+				url: "/images/instance_sender"
+			});
+			
+			return false;
+		});
+		
 		/* ----------------------------------------- Upon checking/unchecking any filter, this will call an ajax function to return the values for the images ------------------------------------------------------------- */
 		
-		function generate_result() {
+		function generate_result(link) {
 			var form_data = $('#image_filter').serialize();
+			
+			
+			if(!link) {
+				link = "<?php echo "http://".$_SERVER['SERVER_NAME']; ?>/images/image_results";
+			}
 			
 			$.ajax({
 				async:true,
 				data:form_data,
 				dataType:'html',
 				success:function (data, textStatus) {
+					$('#results_holder').hide();
 					$('#results_holder').html(data);
+					$('#results_holder').delay(1100).fadeIn();
 				},
 				type:'post',
-				url:"<?php echo "http://".$_SERVER['SERVER_NAME']; ?>/images/image_results"
+				url:link
 			});
 		}
 	});

@@ -71,6 +71,20 @@ public $displayField = 'brand';
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
+		),
+		
+		'User' => array(
+			'className' => 'User',
+			'joinTable' => 'users_brands',
+			'foreignKey' => 'brand_id',
+			'associationForeignKey' => 'user_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
 		)
 	);
 

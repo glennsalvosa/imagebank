@@ -61,7 +61,23 @@ class User extends AclManagementAppModel {
             )
         )
     );
-
+	
+	public $hasAndBelongsToMany = array(		
+		'Brand' => array(
+			'className' => 'Brand',
+			'joinTable' => 'users_brands',
+			'foreignKey' => 'user_id',
+			'associationForeignKey' => 'brand_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		)
+	);
+	
     function parentNode() {
         if (!$this->id && empty($this->data)) {
             return null;

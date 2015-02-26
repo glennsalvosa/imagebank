@@ -57,8 +57,17 @@ class AppController extends Controller {
 	    //Configure AuthComponent
 	    $this->Auth->loginAction = '/users/login';
 	    $this->Auth->logoutRedirect = '/users/login';
-	    $this->Auth->loginRedirect = array('plugin'=>'acl_management',
-	            'controller' => 'users', 'action' => 'index');
+	    $this->Auth->loginRedirect = "/images/filter";
+	}
+	
+	function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
 	}
 	
 	function var_debug($data) {

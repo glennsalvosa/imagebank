@@ -4,7 +4,7 @@
 		?>
 			<li class="image_results">
 				<a class="fancybox" href="/img/uploaded/<?php echo $image['Image']['location']; ?>">
-					<img src="/img/uploaded/<?php echo $image['Image']['location']; ?>">
+					<img border="0" src="/phpthumb/phpThumb.php?src=http://<?php echo $_SERVER['SERVER_NAME']; ?>/img/uploaded/<?php echo $image['Image']['location']; ?>&w=120&bg=FFFFFF" alt="">
 				</a>
 				
 				<div class="cart_action_holder">
@@ -25,20 +25,31 @@
 						?>
 					</div>
 				</div>
+				
+				<div class="mailerForm" id="mailerForm_<?php echo $image['Image']['id']; ?>">
+					<form style="margin: 0;" class="mailerAjaxForm" method="post" action="/images/instance_sender"  id="mailerForm_<?php echo $image['Image']['id']; ?>" >
+						<fieldset>
+							<legend>Send VIA Email</legend>
+							<label>Email Addresses<br /><small><i>Seperate recipients with comma</i></small></label>
+							<textarea name="recipients" placeholder="Enter recipients here"></textarea>
+							<input type="hidden" name="image_id" value="<?php echo $image['Image']['id']; ?>">
+							<input type="submit" value="SEND" class="btn btn-primary">
+							<input type="button" value="CLOSE" class="btn btn-danger closeMailer" id="closeMailer_<?php echo $image['Image']['id']; ?>">
+						</fieldset>
+					</form>
+				</div>
 			</li>
 		<?php
 	}
 ?>
 </ul>
 
-<?php if(count($images) > 10) { ?>
-	<div class="left span12 paging_holder">
-		<div class="paging">
-			<?php
-				echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-				echo $this->Paginator->numbers(array('separator' => ''));
-				echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-			?>
-		</div>
+<div class="left span12 paging_holder">
+	<div class="paging">
+		<?php
+			echo $this->Paginator->prev('< ' . __('PREV'), array(), null, array('class' => 'prev disabled paging_link'));
+			echo $this->Paginator->numbers(array('separator' => '', 'class' => 'paging_link'));
+			echo $this->Paginator->next(__('NEXT') . ' >', array(), null, array('class' => 'next disabled paging_link'));
+		?>
 	</div>
-<?php } ?>
+</div>

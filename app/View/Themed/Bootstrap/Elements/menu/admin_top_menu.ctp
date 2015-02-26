@@ -13,7 +13,7 @@ $current_page = $this->params['action'];
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="#">Image Bank</a>
+			<a class="brand" href="/images/filter">Image Bank</a>
 			<div class="nav-collapse collapse">
 				<ul class="nav secondary-nav pull-right">
 					<li class="menu"><?php echo $this->Html->link('My Profile', '/users/edit_profile');?></li>
@@ -21,9 +21,7 @@ $current_page = $this->params['action'];
 				</ul>
 
 				<ul class="nav">
-					<li><a href="#">Home</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
+					<li><a href="/images/filter">Home</a></li>
 					<li class="dropdown  <?php if($current_plugin == 'acl_management'){echo 'active';} ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Authenticate <b class="caret"></b></a>
 						<ul class="dropdown-menu">
