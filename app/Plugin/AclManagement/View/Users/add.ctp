@@ -55,6 +55,12 @@
 					<a class="dynamic-trigger" href="#brand_creator">Add More</a>
 				</div>
 			</div>
+			
+			<?php
+				echo $this->Form->input('staff_id', array('div'=>'control-group',
+					'before'=>'<label class="control-label">'.__('Staff').'</label><div class="controls">',
+					'after'=>'</div>','label'=>false, 'class'=>'', 'empty' => 'Select a staff'));
+			?>
 		
 			<div>
 				<?php echo $this->Form->submit(__('Submit'), array('class'=>'btn btn-primary', 'div'=>false));?>

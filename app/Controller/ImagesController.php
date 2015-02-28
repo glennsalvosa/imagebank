@@ -216,7 +216,6 @@ class ImagesController extends AppController {
 		$campaigns = $this->Image->Campaign->find('list');
 		$categories = $this->Image->Category->find('list');
 		$seasons = $this->Image->Season->find('list');
-		$staffs = $this->Image->Staff->find('list');
 		$weeks = $this->Image->Week->find('list');
 		
 		if(!empty($id)) {
@@ -335,12 +334,6 @@ class ImagesController extends AppController {
 						}
 						break;
 						
-					case 'Staff':
-						if(!empty($selected_options['id'])) {
-							$condition['Staff.id'] = "Staff.id IN (".implode(",", $selected_options['id']).")";
-						}
-						break;
-						
 					case 'Week':
 						if(!empty($selected_options['id'])) {
 							$condition['Week.id']  = "Week.id IN (".implode(",", $selected_options['id']).")";
@@ -380,11 +373,6 @@ class ImagesController extends AppController {
 					ON Image.id = ImageSeason.image_id
 					LEFT JOIN seasons as Season
 					ON ImageSeason.season_id = Season.id
-					
-					LEFT JOIN images_staffs as ImageStaff
-					ON Image.id = ImageStaff.image_id
-					LEFT JOIN staffs as Staff
-					ON ImageStaff.staff_id = Staff.id
 					
 					LEFT JOIN images_weeks as ImageWeek
 					ON Image.id = ImageWeek.image_id

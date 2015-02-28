@@ -59,31 +59,10 @@ class Staff extends AppModel {
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	public $hasAndBelongsToMany = array(
-		'Image' => array(
-			'className' => 'Image',
-			'joinTable' => 'images_staffs',
-			'foreignKey' => 'staff_id',
-			'associationForeignKey' => 'image_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		)
-	);
-
+	
+	public $hasMany = array(
+        'User' => array(
+            'className' => 'User'
+        )
+    );
 }

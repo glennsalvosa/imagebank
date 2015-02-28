@@ -119,7 +119,8 @@ class UsersController extends AclManagementAppController {
         }
         $groups = $this->User->Group->find('list');
         $brands = $this->User->Brand->find('list');
-        $this->set(compact('groups', 'brands'));
+        $staffs = $this->User->Staff->find('list');
+        $this->set(compact('groups', 'brands', 'staffs'));
     }
 
     /**
@@ -146,7 +147,8 @@ class UsersController extends AclManagementAppController {
         }
         $groups = $this->User->Group->find('list');
 		$brands = $this->User->Brand->find('list');
-        $this->set(compact('groups', 'brands'));
+		$staffs = $this->User->Staff->find('list');
+        $this->set(compact('groups', 'brands', 'staffs'));
     }
 
     /**

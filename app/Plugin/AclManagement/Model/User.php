@@ -78,6 +78,16 @@ class User extends AclManagementAppModel {
 		)
 	);
 	
+	public $belongsTo = array(
+		'Staff' => array(
+			'className' => 'Staff',
+			'foreignKey' => 'staff_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
+	
     function parentNode() {
         if (!$this->id && empty($this->data)) {
             return null;

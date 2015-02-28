@@ -75,19 +75,6 @@
 					</ul>
 				</fieldset>
 				
-				<fiedset>
-					<label id="staff_option_toggle" class="module_toggle">Staffs</label>
-					<ul <?php if($filters['Filter']['staff'] != "") { echo "style='display:block;'"; } ?> class="options_toggle" id="staff_option_toggle">
-						<?php
-							foreach($staffs as $staff_key => $staff) {
-								?>
-									<li><label><input <?php if(in_array($staff_key, explode(",", $filters['Filter']['staff']))) { echo "checked=checked"; } ?> type="checkbox" class="staff_selection filter_toggle" name="data[Staff][id][]" value="<?php echo $staff_key; ?>"> <?php echo $staff; ?></label></li>
-								<?php
-							}
-						?>
-					</ul>
-				</fieldset>
-				
 				<fieldset>
 					<label id="week_option_toggle" class="module_toggle">Week</label>
 					<ul <?php if($filters['Filter']['week'] != "") { echo "style='display:block;'"; } ?> class="options_toggle" id="week_option_toggle">
